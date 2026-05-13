@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milan Chapagain — AI Engineer & Web Developer</title>
+  <meta name="description" content="Portfolio of Milan Chapagain — BCA Student & AI Engineer specializing in Python-driven solutions.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    @theme {
+      --color-emerald-accent: #10b981;
+      --color-charcoal: #0a0a0a;
+      --color-charcoal-light: #111111;
+      --color-charcoal-card: #151515;
+      --color-charcoal-border: #1f1f1f;
+      --font-inter: 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #10b981 #0a0a0a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #10b981;
+      border-radius: 3px;
+    }
+
+    /* Glow effects */
+    .glow-emerald {
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.08), 0 0 60px rgba(16, 185, 129, 0.04);
+    }
+    .glow-emerald-hover:hover {
+      box-shadow: 0 0 40px rgba(16, 185, 129, 0.15), 0 0 80px rgba(16, 185, 129, 0.08);
+    }
+    .glow-emerald-strong {
+      box-shadow: 0 0 50px rgba(16, 185, 129, 0.2), 0 0 100px rgba(16, 185, 129, 0.1);
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Animated underline */
+    .animated-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .animated-underline::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #10b981;
+      transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .animated-underline:hover::after {
+      width: 100%;
+    }
+
+    /* Cursor glow */
+    .cursor-glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+    }
+
+    /* Card hover lift */
+    .card-hover {
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    /* Noise overlay */
+    .noise-overlay::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Pulse animation */
+    @keyframes pulse-emerald {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    .pulse-emerald {
+      animation: pulse-emerald 3s ease-in-out infinite;
+    }
+
+    /* Dot pattern */
+    .dot-pattern {
+      background-image: radial-gradient(circle, rgba(16, 185, 129, 0.1) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Section divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.3) 50%, transparent 100%);
+    }
+
+    /* Copy toast */
+    .copy-toast {
+      transform: translateY(10px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .copy-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Nav blur */
+    .nav-blur {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+    }
+
+    /* Bento grid lines */
+    .bento-card {
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: linear-gradient(145deg, rgba(21, 21, 21, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
+    }
+    .bento-card:hover {
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    /* Status indicator */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .status-blink {
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(16, 185, 129, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="noise-overlay">
+
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-charcoal/80 border-b border-white/[0.04] transition-all duration-500" role="navigation" aria-label="Main navigation">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="Home">
+        <div class="w-8 h-8 rounded-lg bg-emerald-accent/10 border border-emerald-accent/20 flex items-center justify-center group-hover:bg-emerald-accent/20 transition-all duration-300">
+          <span class="text-emerald-accent font-bold text-sm">M</span>
+        </div>
+        <span class="text-white/90 font-medium text-sm tracking-wide hidden sm:block">Milan Chapagain</span>
+      </a>
+      <div class="flex items-center gap-1">
+        <a href="#projects" class="px-4 py-2 text-sm text-white/50 hover:text-white transition-colors duration-300 rounded-lg hover:bg-white/[0.04]">Work</a>
+        <a href="#stack" class="px-4 py-2 text-sm text-white/50 hover:text-white transition-colors duration-300 rounded-lg hover:bg-white/[0.04]">Stack</a>
+        <a href="#contact" class="px-4 py-2 text-sm text-emerald-accent font-medium bg-emerald-accent/10 rounded-lg hover:bg-emerald-accent/15 transition-all duration-300 border border-emerald-accent/20">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden" aria-label="Hero">
+      <!-- Background gradient orbs -->
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-accent/[0.03] rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-emerald-accent/[0.02] rounded-full blur-3xl"></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <!-- Status badge -->
+        <div class="hero-element inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] mb-8">
+          <span class="w-2 h-2 rounded-full bg-emerald-accent status-blink"></span>
+          <span class="text-xs text-white/50 font-medium tracking-widest uppercase">Available for Collaboration</span>
+        </div>
+
+        <!-- Main heading -->
+        <h1 class="hero-element text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
+          <span class="block text-white">Building Intelligence.</span>
+          <span class="block gradient-text mt-2">Crafting Experience.</span>
+        </h1>
+
+        <!-- Subtext -->
+        <p class="hero-element text-base sm:text-lg md:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed mb-10 font-light">
+          Milan Chapagain — BCA Student & AI Engineer specializing in Python-driven solutions.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-element flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#projects" class="group inline-flex items-center gap-3 px-8 py-4 bg-emerald-accent text-charcoal font-semibold rounded-2xl hover:bg-emerald-400 transition-all duration-300 glow-emerald-hover text-sm tracking-wide">
+            View Projects
+            <i data-lucide="arrow-down-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform duration-300"></i>
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-3 px-8 py-4 bg-white/[0.04] text-white/80 font-medium rounded-2xl hover:bg-white/[0.08] transition-all duration-300 border border-white/[0.06] text-sm tracking-wide">
+            Get in Touch
+            <i data-lucide="mail" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="hero-element absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <span class="text-[10px] text-white/20 tracking-[0.3em] uppercase font-medium">Scroll</span>
+          <div class="w-px h-12 bg-gradient-to-b from-white/20 to-transparent"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="section-divider max-w-md mx-auto"></div>
+
+    <!-- ===== FEATURED PROJECT ===== -->
+    <section id="projects" class="relative py-24 sm:py-32 px-6" aria-label="Featured Project">
+      <div class="max-w-6xl mx-auto">
+        <!-- Section label -->
+        <div class="reveal-element flex items-center gap-3 mb-4">
+          <div class="w-8 h-px bg-emerald-accent/40"></div>
+          <span class="text-xs text-emerald-accent/80 font-medium tracking-[0.3em] uppercase">Featured Work</span>
+        </div>
+
+        <h2 class="reveal-element text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-16 tracking-tight">
+          Selected Project
+        </h2>
+
+        <!-- Project Card -->
+        <div class="reveal-element group relative overflow-hidden rounded-3xl bento-card glow-emerald card-hover cursor-pointer">
+          <div class="relative p-8 sm:p-12 lg:p-16">
+            <!-- Top row -->
+            <div class="flex flex-wrap items-center gap-3 mb-8">
+              <span class="px-3 py-1 text-[10px] font-semibold tracking-[0.2em] uppercase bg-emerald-accent/10 text-emerald-accent rounded-full border border-emerald-accent/20">AI / NLP</span>
+              <span class="px-3 py-1 text-[10px] font-semibold tracking-[0.2em] uppercase bg-white/[0.04] text-white/40 rounded-full border border-white/[0.06]">Python</span>
+              <span class="px-3 py-1 text-[10px] font-semibold tracking-[0.2em] uppercase bg-white/[0.04] text-white/40 rounded-full border border-white/[0.06]">Tailwind CSS</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+              <!-- Left: Info -->
+              <div>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight group-hover:text-emerald-accent transition-colors duration-500">
+                  AI Chatbot
+                </h3>
+                <p class="text-white/35 text-base sm:text-lg leading-relaxed mb-8 font-light">
+                  An advanced NLP-driven conversational interface built with Python and Tailwind CSS. Features intelligent context-aware responses, semantic understanding, and a beautifully crafted minimal UI.
+                </p>
+
+                <!-- Project stats -->
+                <div class="grid grid-cols-3 gap-6 mb-8">
+                  <div>
+                    <div class="text-2xl font-bold text-emerald-accent">NLP</div>
+                    <div class="text-[11px] text-white/30 uppercase tracking-wider mt-1">Engine</div>
+                  </div>
+                  <div>
+                    <div class="text-2xl font-bold text-white">98%</div>
+                    <div class="text-[11px] text-white/30 uppercase tracking-wider mt-1">Accuracy</div>
+                  </div>
+                  <div>
+                    <div class="text-2xl font-bold text-white"><50ms</div>
+                    <div class="text-[11px] text-white/30 uppercase tracking-wider mt-1">Response</div>
+                  </div>
+                </div>
+
+                <div class="inline-flex items-center gap-2 text-emerald-accent text-sm font-medium group-hover:gap-3 transition-all duration-300">
+                  <span>Explore Project</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+              </div>
+
+              <!-- Right: Visual mockup -->
+              <div class="relative">
+                <div class="relative rounded-2xl overflow-hidden bg-charcoal-light border border-white/[0.06] p-6 dot-pattern">
+                  <!-- Chat mockup -->
+                  <div class="space-y-4">
+                    <div class="flex items-center gap-3 mb-6">
+                      <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                      <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                      <div class="w-3 h-3 rounded-full bg-emerald-accent/60"></div>
+                      <span class="ml-4 text-xs text-white/20 font-mono">ai-chatbot.py</span>
+                    </div>
+
+                    <!-- User message -->
+                    <div class="flex justify-end">
+                      <div class="bg-emerald-accent/10 border border-emerald-accent/20 rounded-2xl rounded-br-md px-5 py-3 max-w-[80%]">
+                        <p class="text-sm text-white/80">What can you help me with?</p>
+                      </div>
+                    </div>
+
+                    <!-- Bot message -->
+                    <div class="flex justify-start">
+                      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl rounded-bl-md px-5 py-3 max-w-[85%]">
+                        <p class="text-sm text-white/60">I can assist with code generation, data analysis, natural language understanding, and much more. How can I help you today?</p>
+                      </div>
+                    </div>
+
+                    <!-- User message -->
+                    <div class="flex justify-end">
+                      <div class="bg-emerald-accent/10 border border-emerald-accent/20 rounded-2xl rounded-br-md px-5 py-3 max-w-[80%]">
+                        <p class="text-sm text-white/80">Analyze this dataset for me.</p>
+                      </div>
+                    </div>
+
+                    <!-- Typing indicator -->
+                    <div class="flex justify-start">
+                      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl rounded-bl-md px-5 py-3">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-1.5 h-1.5 rounded-full bg-emerald-accent/60 pulse-emerald"></div>
+                          <div class="w-1.5 h-1.5 rounded-full bg-emerald-accent/60 pulse-emerald" style="animation-delay: 0.2s;"></div>
+                          <div class="w-1.5 h-1.5 rounded-full bg-emerald-accent/60 pulse-emerald" style="animation-delay: 0.4s;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Glow -->
+                <div class="absolute -bottom-8 -right-8 w-40 h-40 bg-emerald-accent/[0.06] rounded-full blur-3xl"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="section-divider max-w-md mx-auto"></div>
+
+    <!-- ===== TECH STACK BENTO GRID ===== -->
+    <section id="stack" class="relative py-24 sm:py-32 px-6" aria-label="Tech Stack">
+      <div class="max-w-6xl mx-auto">
+        <!-- Section label -->
+        <div class="reveal-element flex items-center gap-3 mb-4">
+          <div class="w-8 h-px bg-emerald-accent/40"></div>
+          <span class="text-xs text-emerald-accent/80 font-medium tracking-[0.3em] uppercase">Expertise</span>
+        </div>
+
+        <h2 class="reveal-element text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+          Tech Stack
+        </h2>
+        <p class="reveal-element text-white/30 text-base sm:text-lg mb-16 max-w-xl font-light">
+          Tools and technologies I use to bring ideas to life.
+        </p>
+
+        <!-- Bento Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[200px]">
+
+          <!-- Python - Large -->
+          <div class="bento-item bento-card rounded-2xl p-8 sm:col-span-2 sm:row-span-2 flex flex-col justify-between card-hover glow-emerald-hover relative overflow-hidden group">
+            <div class="absolute top-0 right-0 w-48 h-48 bg-emerald-accent/[0.03] rounded-full blur-3xl transform translate-x-16 -translate-y-16 group-hover:bg-emerald-accent/[0.06] transition-all duration-700"></div>
+            <div class="relative z-10">
+              <div class="w-14 h-14 rounded-2xl bg-emerald-accent/10 border border-emerald-accent/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                <svg viewBox="0 0 24 24" class="w-7 h-7 text-emerald-accent" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" opacity="0"/>
+                  <i data-lucide="terminal" class="w-7 h-7"></i>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-emerald-accent transition-colors duration-500">Python</h3>
+              <p class="text-white/30 text-sm leading-relaxed font-light">Primary language for AI/ML development, data processing, automation, and backend systems. Deep expertise in NumPy, Pandas, TensorFlow & PyTorch.</p>
+            </div>
+            <div class="relative z-10 flex items-center gap-2 mt-4">
+              <div class="h-1.5 flex-1 rounded-full bg-white/[0.04] overflow-hidden">
+                <div class="h-full w-[95%] bg-gradient-to-r from-emerald-accent/60 to-emerald-accent rounded-full"></div>
+              </div>
+              <span class="text-xs text-white/30 font-mono">95%</span>
+            </div>
+          </div>
+
+          <!-- Tailwind CSS -->
+          <div class="bento-item bento-card rounded-2xl p-6 flex flex-col justify-between card-hover glow-emerald-hover group relative overflow-hidden">
+            <div class="absolute bottom-0 right-0 w-24 h-24 bg-sky-400/[0.03] rounded-full blur-2xl group-hover:bg-sky-400/[0.06] transition-all duration-700"></div>
+            <div class="relative z-10">
+              <div class="w-11 h-11 rounded-xl bg-sky-400/10 border border-sky-400/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
+                <i data-lucide="palette" class="w-5 h-5 text-sky-400"></i>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-sky-400 transition-colors duration-500">Tailwind CSS</h3>
+            </div>
+            <p class="text-white/25 text-xs font-light relative z-10">Utility-first styling for rapid, responsive UI development.</p>
+          </div>
+
+          <!-- AI/ML -->
+          <div class="bento-item bento-card rounded-2xl p-6 flex flex-col justify-between card-hover glow-emerald-hover group relative overflow-hidden">
+            <div class="absolute bottom-0 right-0 w-24 h-24 bg-purple-400/[0.03] rounded-full blur-2xl group-hover:bg-purple-400/[0.06] transition-all duration-700"></div>
+            <div class="relative z-10">
+              <div class="w-11 h-11 rounded-xl bg-purple-400/10 border border-purple-400/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
+                <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors duration-500">AI / ML</h3>
+            </div>
+            <p class="text-white/25 text-xs font-light relative z-10">Machine learning, NLP, and intelligent system design.</p>
+          </div>
+
+          <!-- Web Development - Wide -->
+          <div class="bento-item bento-card rounded-2xl p-6 sm:col-span-2 flex flex-col justify-between card-hover glow-emerald-hover group relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-amber-400/[0.03] rounded-full blur-2xl group-hover:bg-amber-400/[0.06] transition-all duration-700"></div>
+            <div class="relative z-10 flex items-start gap-5">
+              <div class="w-11 h-11 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500">
+                <i data-lucide="globe" class="w-5 h-5 text-amber-400"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white mb-1.5 group-hover:text-amber-400 transition-colors duration-500">Web Development</h3>
+                <p class="text-white/25 text-sm font-light leading-relaxed">Full-stack web applications with modern frameworks, responsive design, REST APIs, and performance-optimized architectures.</p>
+              </div>
+            </div>
+            <div class="relative z-10 flex flex-wrap gap-2 mt-4">
+              <span class="px-2.5 py-1 text-[10px] bg-white/[0.04] text-white/30 rounded-md border border-white/[0.06] font-mono">HTML5</span>
+              <span class="px-2.5 py-1 text-[10px] bg-white/[0.04] text-white/30 rounded-md border border-white/[0.06] font-mono">CSS3</span>
+              <span class="px-2.5 py-1 text-[10px] bg-white/[0.04] text-white/30 rounded-md border border-white/[0.06] font-mono">JavaScript</span>
+              <span class="px-2.5 py-1 text-[10px] bg-white/[0.04] text-white/30 rounded-md border border-white/[0.06] font-mono">REST</span>
+              <span class="px-2.5 py-1 text-[10px] bg-white/[0.04] text-white/30 rounded-md border border-white/[0.06] font-mono">Git</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="section-divider max-w-md mx-auto"></div>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="relative py-24 sm:py-32 px-6" aria-label="Contact">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Section label -->
+        <div class="reveal-element flex items-center justify-center gap-3 mb-4">
+          <div class="w-8 h-px bg-emerald-accent/40"></div>
+          <span class="text-xs text-emerald-accent/80 font-medium tracking-[0.3em] uppercase">Get in Touch</span>
+          <div class="w-8 h-px bg-emerald-accent/40"></div>
+        </div>
+
+        <h2 class="reveal-element text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+          Let's <span class="gradient-text">Collaborate</span>
+        </h2>
+
+        <p class="reveal-element text-white/30 text-base sm:text-lg mb-16 max-w-lg mx-auto font-light leading-relaxed">
+          Have a project in mind or want to explore AI-powered solutions? I'd love to hear from you.
+        </p>
+
+        <!-- Contact cards -->
+        <div class="reveal-element grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-12">
+
+          <!-- Email Card -->
+          <a href="mailto:chapagainmilan428@gmail.com" class="bento-card rounded-2xl p-8 text-left card-hover glow-emerald-hover group block">
+            <div class="w-12 h-12 rounded-xl bg-emerald-accent/10 border border-emerald-accent/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500">
+              <i data-lucide="mail" class="w-5 h-5 text-emerald-accent"></i>
+            </div>
+            <div class="text-xs text-white/30 uppercase tracking-[0.2em] font-medium mb-2">Email</div>
+            <div class="text-white/80 text-sm font-medium group-hover:text-emerald-accent transition-colors duration-300 break-all">
+              chapagainmilan428@gmail.com
+            </div>
+          </a>
+
+          <!-- Phone Card -->
+          <a href="tel:9762248958" class="bento-card rounded-2xl p-8 text-left card-hover glow-emerald-hover group block">
+            <div class="w-12 h-12 rounded-xl bg-emerald-accent/10 border border-emerald-accent/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500">
+              <i data-lucide="phone" class="w-5 h-5 text-emerald-accent"></i>
+            </div>
+            <div class="text-xs text-white/30 uppercase tracking-[0.2em] font-medium mb-2">Phone</div>
+            <div class="text-white/80 text-sm font-medium group-hover:text-emerald-accent transition-colors duration-300">
+              9762248958
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Copy Email Button -->
+        <div class="reveal-element relative inline-block">
+          <button id="copyEmailBtn" onclick="copyEmail()" class="group inline-flex items-center gap-3 px-8 py-4 bg-emerald-accent text-charcoal font-semibold rounded-2xl hover:bg-emerald-400 transition-all duration-300 glow-emerald-hover text-sm tracking-wide active:scale-95" aria-label="Copy email address to clipboard">
+            <i data-lucide="copy" class="w-4 h-4" id="copyIcon"></i>
+            <span id="copyText">Copy Email Address</span>
+          </button>
+          <!-- Toast -->
+          <div id="copyToast" class="copy-toast absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-emerald-accent/20 text-emerald-accent text-xs font-medium rounded-full border border-emerald-accent/30" role="alert">
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="check" class="w-3 h-3"></i>
+              Copied to clipboard!
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="relative border-t border-white/[0.04] py-8 px-6" role="contentinfo">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-emerald-accent/10 border border-emerald-accent/20 flex items-center justify-center">
+          <span class="text-emerald-accent font-bold text-[10px]">M</span>
+        </div>
+        <span class="text-white/20 text-xs">© 2025 Milan Chapagain. All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="mailto:chapagainmilan428@gmail.com" class="text-white/20 hover:text-emerald-accent transition-colors duration-300" aria-label="Email">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+        </a>
+        <a href="#" class="text-white/20 hover:text-emerald-accent transition-colors duration-300" aria-label="GitHub">
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </a>
+        <a href="#" class="text-white/20 hover:text-emerald-accent transition-colors duration-300" aria-label="LinkedIn">
+          <i data-lucide="linkedin" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ========================
+    // Initialize Lucide Icons
+    // ========================
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initAnimations();
+      initCursorGlow();
+      initNavbar();
+    });
+
+    // ========================
+    // GSAP Animations
+    // ========================
+    function initAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero staggered fade-in
+      const heroElements = document.querySelectorAll('.hero-element');
+      gsap.fromTo(heroElements,
+        {
+          y: 40,
+          opacity: 0,
+          filter: 'blur(8px)'
+        },
+        {
+          y: 0,
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 1,
+          ease: 'power3.out',
+          stagger: 0.15,
+          delay: 0.3
+        }
+      );
+
+      // Scroll-triggered reveal animations
+      const revealElements = document.querySelectorAll('.reveal-element');
+      revealElements.forEach((el) => {
+        gsap.fromTo(el,
+          {
+            y: 60,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              end: 'top 65%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      });
+
+      // Bento cards staggered reveal
+      const bentoItems = document.querySelectorAll('.bento-item');
+      gsap.fromTo(bentoItems,
+        {
+          y: 50,
+          opacity: 0,
+          scale: 0.96
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.7,
+          ease: 'power3.out',
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: '#stack',
+            start: 'top 70%',
+            toggleActions: 'play none none none',
+          }
+        }
+      );
+
+      // Hover scale effects for bento cards
+      bentoItems.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, { scale: 1.05, duration: 0.4, ease: 'power2.out' });
+        });
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, { scale: 1, duration: 0.4, ease: 'power2.out' });
+        });
+      });
+
+      // Project card hover
+      const projectCard = document.querySelector('#projects .group');
+      if (projectCard) {
+        projectCard.addEventListener('mouseenter', () => {
+          gsap.to(projectCard, { scale: 1.02, duration: 0.4, ease: 'power2.out' });
+        });
+        projectCard.addEventListener('mouseleave', () => {
+          gsap.to(projectCard, { scale: 1, duration: 0.4, ease: 'power2.out' });
+        });
+      }
+
+      // Parallax on hero background orbs
+      gsap.to('#hero .absolute:nth-child(1)', {
+        y: -80,
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      });
+      gsap.to('#hero .absolute:nth-child(2)', {
+        y: -50,
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      });
+
+      // Section dividers
+      document.querySelectorAll('.section-divider').forEach(divider => {
+        gsap.fromTo(divider,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            duration: 1,
+            ease: 'power3.inOut',
+            scrollTrigger: {
+              trigger: divider,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      });
+    }
+
+    // ========================
+    // Cursor Glow Follow
+    // ========================
+    function initCursorGlow() {
+      const glow = document.getElementById('cursorGlow');
+      if (!glow) return;
+
+      // Only on non-touch devices
+      if (window.matchMedia('(pointer: fine)').matches) {
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function updateGlow() {
+          glowX += (mouseX - glowX) * 0.08;
+          glowY += (mouseY - glowY) * 0.08;
+          glow.style.left = glowX + 'px';
+          glow.style.top = glowY + 'px';
+          requestAnimationFrame(updateGlow);
+        }
+        updateGlow();
+      } else {
+        glow.style.display = 'none';
+      }
+    }
+
+    // ========================
+    // Navbar scroll effect
+    // ========================
+    function initNavbar() {
+      const nav = document.getElementById('navbar');
+      let lastScroll = 0;
+
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+
+        if (currentScroll > 100) {
+          nav.style.borderBottomColor = 'rgba(255, 255, 255, 0.06)';
+          nav.style.background = 'rgba(10, 10, 10, 0.9)';
+        } else {
+          nav.style.borderBottomColor = 'rgba(255, 255, 255, 0.04)';
+          nav.style.background = 'rgba(10, 10, 10, 0.8)';
+        }
+
+        // Hide nav on scroll down, show on scroll up
+        if (currentScroll > lastScroll && currentScroll > 200) {
+          nav.style.transform = 'translateY(-100%)';
+        } else {
+          nav.style.transform = 'translateY(0)';
+        }
+        lastScroll = currentScroll;
+      });
+    }
+
+    // ========================
+    // Copy Email Function
+    // ========================
+    function copyEmail() {
+      const email = 'chapagainmilan428@gmail.com';
+      const toast = document.getElementById('copyToast');
+      const copyText = document.getElementById('copyText');
+      const btn = document.getElementById('copyEmailBtn');
+
+      navigator.clipboard.writeText(email).then(() => {
+        // Update button text
+        copyText.textContent = 'Copied!';
+        btn.classList.add('ring-2', 'ring-emerald-accent/40');
+
+        // Show toast
+        toast.classList.add('show');
+
+        // Animate button
+        gsap.fromTo(btn, { scale: 0.95 }, { scale: 1, duration: 0.3, ease: 'back.out(1.7)' });
+
+        // Reset after delay
+        setTimeout(() => {
+          toast.classList.remove('show');
+          copyText.textContent = 'Copy Email Address';
+          btn.classList.remove('ring-2', 'ring-emerald-accent/40');
+        }, 2500);
+      }).catch(() => {
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = email;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        copyText.textContent = 'Copied!';
+        toast.classList.add('show');
+        gsap.fromTo(btn, { scale: 0.95 }, { scale: 1, duration: 0.3, ease: 'back.out(1.7)' });
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+          copyText.textContent = 'Copy Email Address';
+        }, 2500);
+      });
+    }
+
+    // ========================
+    // Smooth scroll for nav links
+    // ========================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
